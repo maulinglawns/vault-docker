@@ -3,6 +3,7 @@ services:
   vault:
     environment:
       - VAULT_API_ADDR=http://127.0.0.1:8200
+      - VAULT_CLUSTER_ADDR=http://127.0.0.1:8201
     image: vault:1.11.11
     container_name: vault
     ports:
