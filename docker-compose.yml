@@ -1,18 +1,53 @@
 version: '2'
 services:
-  vault:
-    environment:
-      - VAULT_API_ADDR=http://127.0.0.1:8200
-      - VAULT_CLUSTER_ADDR=http://127.0.0.1:8201
+  vault-1:
+    hostname: vault-1
     image: vault:1.11.11
-    container_name: vault
     ports:
-      - "8200:8200"
+      - "8210:8200"
     restart: always
     volumes:
       - ./volumes/logs:/vault/logs
-      - ./volumes/file:/vault/file
+      - vault-1:/vault/file
       - ./volumes/config:/vault/config
     cap_add:
       - IPC_LOCK
-    entrypoint: vault server -config=/vault/config/vault.json
+    entrypoint: vault server -config=/vault/config/vault1.json
+  vault-2:
+    depends_on:
+      - vault-1
+    hostname: vault-2
+    image: vault:1.11.11
+    ports:
+      - "8220:8200"
+    restart: always
+    volumes:
+      - ./volumes/logs:/vault/logs
+      - vault-2:/vault/file
+      - ./volumes/config:/vault/config
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault2.json
+  vault-3:
+    depends_on:
+      - vault-2
+    hostname: vault-3
+    image: vault:1.11.11
+    ports:
+      - "8230:8200"
+    restart: always
+    volumes:
+      - ./volumes/logs:/vault/logs
+      - vault-3:/vault/file
+      - ./volumes/config:/vault/config
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault3.json
+
+volumes:
+  vault-1:
+    driver: local
+  vault-2:
+    driver: local
+  vault-3:
+    driver: local
