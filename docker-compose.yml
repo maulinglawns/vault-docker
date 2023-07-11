@@ -2,7 +2,7 @@ version: '2'
 services:
   vault-1:
     hostname: vault-1
-    image: vault:1.11.11
+    image: vault:1.8.2
     ports:
       - "8210:8200"
     restart: always
@@ -17,7 +17,7 @@ services:
     depends_on:
       - vault-1
     hostname: vault-2
-    image: vault:1.11.11
+    image: vault:1.8.2
     ports:
       - "8220:8200"
     restart: always
@@ -32,7 +32,7 @@ services:
     depends_on:
       - vault-2
     hostname: vault-3
-    image: vault:1.11.11
+    image: vault:1.8.2
     ports:
       - "8230:8200"
     restart: always
