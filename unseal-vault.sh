@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VAULT_ADDR="http://localhost:8210"
+export VAULT_ADDR="http://localhost:8210"
 
 i=0
 
