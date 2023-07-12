@@ -2,12 +2,11 @@ version: '2'
 services:
   vault-1:
     hostname: vault-1
-    image: vault:1.8.2
+    image: &vault-version vault:1.8.2
     ports:
       - "8210:8200"
     restart: always
     volumes:
-      - ./volumes/logs:/vault/logs
       - vault-1:/vault/file
       - ./volumes/config:/vault/config
     cap_add:
@@ -17,12 +16,11 @@ services:
     depends_on:
       - vault-1
     hostname: vault-2
-    image: vault:1.8.2
+    image: *vault-version
     ports:
       - "8220:8200"
     restart: always
     volumes:
-      - ./volumes/logs:/vault/logs
       - vault-2:/vault/file
       - ./volumes/config:/vault/config
     cap_add:
@@ -30,14 +28,13 @@ services:
     entrypoint: vault server -config=/vault/config/vault2.json
   vault-3:
     depends_on:
-      - vault-2
+      - vault-1
     hostname: vault-3
-    image: vault:1.8.2
+    image: *vault-version
     ports:
       - "8230:8200"
     restart: always
     volumes:
-      - ./volumes/logs:/vault/logs
       - vault-3:/vault/file
       - ./volumes/config:/vault/config
     cap_add:
@@ -46,8 +43,5 @@ services:
 
 volumes:
   vault-1:
-    driver: local
   vault-2:
-    driver: local
   vault-3:
-    driver: local
