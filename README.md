@@ -7,12 +7,16 @@ Strictly lab usage!
 ````
 docker-compose up
 ````
-# Initialize
-If this is the _first_ time, we need to initialize. Run:
-````
-./init-vault.sh
-````
-# Unseal
-````
-./unseal-vault.sh
-````
+Run the helper scripts in the order they are named: `01 ... 04`  
+When you have executed the final script (`04-vault-join.sh`):
+- The unseal keys and `root` token has been saved in the file: `vault-init.txt` 
+- vault node 1 (http://localhost:8210) is unsealed  
+- Unseal node 2 (http://localhost:8220) via the web GUI
+- Unseal node 3 (http://localhost:8230) via the web GUI  
+
+NOTE: You only need to do this on an inital setup (or if you delete the docker volumes).  
+
+You can now proceed to log in as user `admin` with the password `admin`.  
+The `admin` user have _all_ access.  
+
+Just to reiterate: **STRICTLY LAB USAGE**
