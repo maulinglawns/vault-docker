@@ -1,4 +1,9 @@
-version: '2'
+version: '3'
+
+x-cap: &cap
+    cap_add:
+      - IPC_LOCK
+
 services:
   vault-1:
     hostname: vault-1
@@ -8,9 +13,8 @@ services:
     restart: always
     volumes:
       - vault-1:/vault/file
-      - ./volumes/config:/vault/config
-    cap_add:
-      - IPC_LOCK
+      - &bind-mount ./volumes/config:/vault/config
+    <<: *cap
     entrypoint: vault server -config=/vault/config/vault1.json
   vault-2:
     depends_on:
@@ -22,9 +26,8 @@ services:
     restart: always
     volumes:
       - vault-2:/vault/file
-      - ./volumes/config:/vault/config
-    cap_add:
-      - IPC_LOCK
+      - *bind-mount
+    <<: *cap
     entrypoint: vault server -config=/vault/config/vault2.json
   vault-3:
     depends_on:
@@ -36,9 +39,8 @@ services:
     restart: always
     volumes:
       - vault-3:/vault/file
-      - ./volumes/config:/vault/config
-    cap_add:
-      - IPC_LOCK
+      - *bind-mount
+    <<: *cap
     entrypoint: vault server -config=/vault/config/vault3.json
 
 volumes:
