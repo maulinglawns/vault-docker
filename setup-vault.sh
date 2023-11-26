@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Get unseal function
+# Get functions
 source functions.sh
 
 echo "Initializing Vault..."
