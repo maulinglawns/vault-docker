@@ -39,6 +39,7 @@ The remaining Vault nodes are joined & unsealed. We are good to go.
 We are now at this status:
 - The unseal keys and `root` token has been saved in the file: `vault-init.txt` 
 - The Vault cluster is unsealed
+- You can reach the web UI at: http://localhost:8210/
 
 _NOTE: You only need to do this on an inital setup (or if you delete the docker volumes).  
 Otherwise you can simply unseal Vault with the keys in_ `vault-init.txt`
