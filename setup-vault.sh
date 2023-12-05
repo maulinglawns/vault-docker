@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Sanity check, vault binary is a requirement
+if ! command -v vault &>/dev/null; then
+    echo "No vault binary found. Exiting."
+    exit 1
+fi
+
 # Get functions
 source functions.sh
 
